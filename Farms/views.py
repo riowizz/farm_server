@@ -11,8 +11,8 @@ from rest_framework import parsers, mixins, viewsets
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 
-from Farms.models import Farmer, Farm, FarmData
-from Farms.serializers import FarmerSerializer, FarmSerializer, FarmDataSerializer
+from Farms.models import Farmer, Farm, FarmData, WifiCredential
+from Farms.serializers import FarmerSerializer, FarmSerializer, FarmDataSerializer, WifiCredentialSerializer
 
 it = []
 server_url = "https://node-c-server.herokuapp.com/api/"
@@ -22,6 +22,60 @@ server_url = "https://node-c-server.herokuapp.com/api/"
 def FarmApi(request):
     obj = Farm
     s = FarmSerializer
+    if request.method == 'GET':
+        q = (request.META['QUERY_STRING'])
+        print(len(q) == 0)
+        if len(q) > 0:
+            tst1 = q.split("&&")
+            temp = {}
+            print(tst1)
+            for i in tst1:
+                tst = i.split("=")
+                temp[tst[0]] = tst[1]
+            if q:
+                item = []
+                item_serializer = {}
+
+                for i in temp:
+                    l = {i: temp[i]}
+                    item = obj.objects.filter(**l)
+
+                    item_serializer = s(item, many=True)
+
+                return JsonResponse(item_serializer.data, safe=False)
+        else:
+            item = obj.objects.all()
+            item_serializer = s(item, many=True)
+            return JsonResponse(item_serializer.data, safe=False)
+    elif request.method == 'POST':
+        item_data = JSONParser().parse(request)
+        item_serializer = s(data=item_data)
+        if item_serializer.is_valid():
+            item_serializer.save()
+            return JsonResponse("created successfully", safe=False)
+        return JsonResponse("Failed to create", safe=False)
+    elif request.method == 'PUT':
+        item_data = JSONParser().parse(request)
+        item = obj.objects.get(id=item_data['id'])
+        item_serializer = s(item, data=item_data)
+        if item_serializer.is_valid():
+            item_serializer.save()
+            return JsonResponse("Updated successfully", safe=False)
+        return JsonResponse("Failed to update", safe=False)
+
+
+    elif request.method == 'DELETE':
+        item = Farm.objects.get()
+        item.delete()
+        return JsonResponse("Deleted successfully", safe=False)
+
+
+
+
+@csrf_exempt
+def CredsApi(request):
+    obj = WifiCredential
+    s = WifiCredentialSerializer
     if request.method == 'GET':
         q = (request.META['QUERY_STRING'])
         print(len(q) == 0)

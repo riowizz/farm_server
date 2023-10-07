@@ -54,4 +54,20 @@ class FarmDataSerializer(serializers.ModelSerializer):
     #     return instance
 
 
+class WifiCredentialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WifiCredentialSerializer
+        fields = "__all__"
+        # fields = ["id", "name", "size", "location", "farmer"]
+
+    # def update(self, instance, validated_data):
+    #     instance.course_code = validated_data.get("course_code", instance.course_code)
+    #     instance.name = validated_data.get("name", instance.name)
+    #     instance.years = validated_data.get("years", instance.years)
+    #     instance.sem_count = validated_data.get("sem_count", instance.sem_count)
+    #
+    #     instance.save()
+    #     return instance
+
+
 
