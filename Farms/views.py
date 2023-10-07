@@ -74,7 +74,7 @@ def FarmApi(request):
 @csrf_exempt
 def FarmDataApi(request):
     obj = FarmData
-    s = FarmSerializer
+    s = FarmDataSerializer
     if request.method == 'GET':
         q = (request.META['QUERY_STRING'])
         print(len(q) == 0)
@@ -102,7 +102,9 @@ def FarmDataApi(request):
             return JsonResponse(item_serializer.data, safe=False)
     elif request.method == 'POST':
         item_data = JSONParser().parse(request)
+        print(item_data)
         item_serializer = s(data=item_data)
+        print(item_serializer)
         if item_serializer.is_valid():
             item_serializer.save()
             return JsonResponse("created successfully", safe=False)
