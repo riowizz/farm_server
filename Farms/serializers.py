@@ -1,7 +1,7 @@
 from django.forms import model_to_dict
 from rest_framework import serializers
 
-from .models import Farmer, Farm, FarmData
+from .models import Farmer, Farm, FarmData, WifiCredential
 
 
 class FarmerSerializer(serializers.ModelSerializer):
@@ -56,7 +56,7 @@ class FarmDataSerializer(serializers.ModelSerializer):
 
 class WifiCredentialSerializer(serializers.ModelSerializer):
     class Meta:
-        model = WifiCredentialSerializer
+        model = WifiCredential
         fields = "__all__"
         # fields = ["id", "name", "size", "location", "farmer"]
 
