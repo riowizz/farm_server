@@ -41,7 +41,7 @@ class FarmData(models.Model):
 
 
     def __str__(self):
-        return "H({}) M({}) T({}) N({}) P({}) K({})".format(self.humidity, self.moisture, self.temperature, self.nitrogen, self.phosphorous, self.potassium)
+        return "H({}) M({}) T({})".format(self.humidity, self.moisture, self.temperature)
 
 
 class WifiCredential(models.Model):
