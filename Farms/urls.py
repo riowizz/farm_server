@@ -12,6 +12,8 @@ urlpatterns = [
     url(r'^farmer/([0-9]+)$', views.FarmerApi),
     url(r'^farm$', views.FarmApi),
     url(r'^farm/([0-9]+)$', views.FarmApi),
+    url(r'^farmer-login$', views.FarmerLoginApi),
+    url(r'^farmer-login/([0-9]+)$', views.FarmerLoginApi),
     url(r'^farmdata$', views.FarmDataApi),
     url(r'^farmdata/([0-9]+)$', views.FarmDataApi),
     url(r'^wificreds$', views.FarmDataApi),

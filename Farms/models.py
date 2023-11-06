@@ -33,12 +33,9 @@ class Farm(models.Model):
 
 class FarmData(models.Model):
     # farm data
-    nitrogen = models.CharField(max_length=255, null=False)
-    phosphorous = models.CharField(max_length=255, null=False)
-    potassium = models.CharField(max_length=255, null=False)
-    temperature = models.CharField(max_length=255, null=False)
-    humidity = models.CharField(max_length=255, null=False)
-    moisture = models.CharField(max_length=255, null=False)
+    temperature = models.CharField(max_length=255, null=True)
+    humidity = models.CharField(max_length=255, null=True)
+    moisture = models.CharField(max_length=255, null=True)
     date = models.DateTimeField(auto_now_add=True)
 
 

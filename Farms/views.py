@@ -183,8 +183,33 @@ def FarmDataApi(request):
 
 @csrf_exempt
 def FarmerApi(request):
+    obj = Farmer
+    s = FarmerSerializer
     if request.method == 'GET':
-        return JsonResponse("Deleted successfully", safe=False)
+        q = (request.META['QUERY_STRING'])
+        print(len(q) == 0)
+        if len(q) > 0:
+            tst1 = q.split("&&")
+            temp = {}
+            print(tst1)
+            for i in tst1:
+                tst = i.split("=")
+                temp[tst[0]] = tst[1]
+            if q:
+                item = []
+                item_serializer = {}
+
+                for i in temp:
+                    l = {i: temp[i]}
+                    item = obj.objects.filter(**l)
+
+                    item_serializer = s(item, many=True)
+
+                return JsonResponse(item_serializer.data, safe=False)
+        else:
+            item = obj.objects.all()
+            item_serializer = s(item, many=True)
+            return JsonResponse(item_serializer.data, safe=False)
     elif request.method == 'POST':
         item_data = JSONParser().parse(request)
         item_serializer = s(data=item_data)
@@ -193,8 +218,72 @@ def FarmerApi(request):
             return JsonResponse("created successfully", safe=False)
         return JsonResponse("Failed to create", safe=False)
     elif request.method == 'PUT':
-        return JsonResponse("Deleted successfully", safe=False)
+        item_data = JSONParser().parse(request)
+        item = obj.objects.get(id=item_data['id'])
+        item_serializer = s(item, data=item_data)
+        if item_serializer.is_valid():
+            item_serializer.save()
+            return JsonResponse("Updated successfully", safe=False)
+        return JsonResponse("Failed to update", safe=False)
+
+
     elif request.method == 'DELETE':
+        item = Farmer.objects.get()
+        item.delete()
+        return JsonResponse("Deleted successfully", safe=False)
+
+
+@csrf_exempt
+def FarmerLoginApi(request):
+    obj = Farmer
+    s = FarmerSerializer
+    if request.method == 'GET':
+        q = (request.META['QUERY_STRING'])
+        print(len(q) == 0)
+        if len(q) > 0:
+            tst1 = q.split("&&")
+            temp = {}
+            print(tst1)
+            for i in tst1:
+                tst = i.split("=")
+                temp[tst[0]] = tst[1]
+            if q:
+                item = []
+                item_serializer = {}
+
+                for i in temp:
+                    l = {i: temp[i]}
+                    item = obj.objects.filter(**l)
+
+                    item_serializer = s(item, many=True)
+
+                return JsonResponse(item_serializer.data, safe=False)
+        else:
+            item = obj.objects.all()
+            item_serializer = s(item, many=True)
+            return JsonResponse(item_serializer.data, safe=False)
+    elif request.method == 'POST':
+        item_data = JSONParser().parse(request)
+        print(item_data)
+        return JsonResponse("Failed to create", safe=False)
+        # item_serializer = s(data=item_data)
+        # if item_serializer.is_valid():
+        #     item_serializer.save()
+        #     return JsonResponse("created successfully", safe=False)
+        # return JsonResponse("Failed to create", safe=False)
+    elif request.method == 'PUT':
+        item_data = JSONParser().parse(request)
+        item = obj.objects.get(id=item_data['id'])
+        item_serializer = s(item, data=item_data)
+        if item_serializer.is_valid():
+            item_serializer.save()
+            return JsonResponse("Updated successfully", safe=False)
+        return JsonResponse("Failed to update", safe=False)
+
+
+    elif request.method == 'DELETE':
+        item = Farmer.objects.get()
+        item.delete()
         return JsonResponse("Deleted successfully", safe=False)
 
 
