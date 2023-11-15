@@ -19,7 +19,7 @@ from django.urls import path, include, re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path('api/(?P<version>(v1|v2))/', include('Farms.urls')),
+    re_path('api/', include('Farms.urls')),
     re_path('api/(?P<version>(v1|v2))/', include('authentication.urls')),
     re_path('api/(?P<version>(v1|v2))/', include('calender.urls')),
     re_path('api/(?P<version>(v1|v2))/', include('recommendations.urls')),
