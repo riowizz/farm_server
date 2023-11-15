@@ -263,14 +263,16 @@ def FarmerLoginApi(request):
             item_serializer = s(item, many=True)
             return JsonResponse(item_serializer.data, safe=False)
     elif request.method == 'POST':
-        item_data = JSONParser().parse(request)
-        print(item_data)
+        print('hello')
+        item_serializer = s(data=JSONParser().parse(request))
+        # item_data = JSONParser().parse(request)
+        # print(request.data)
         return JsonResponse("Failed to create", safe=False)
         # item_serializer = s(data=item_data)
-        # if item_serializer.is_valid():
-        #     item_serializer.save()
-        #     return JsonResponse("created successfully", safe=False)
-        # return JsonResponse("Failed to create", safe=False)
+        if item_serializer.is_valid():
+            item_serializer.save()
+            return JsonResponse("created successfully", safe=False)
+        return JsonResponse("Failed to create", safe=False)
     elif request.method == 'PUT':
         item_data = JSONParser().parse(request)
         item = obj.objects.get(id=item_data['id'])

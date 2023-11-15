@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from django.conf.urls import url,include
+from django.conf.urls import url, include, re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url('^api/', include('Farms.urls')),
+    re_path('api/(?P<version>(v1|v2))/', include('authentication.urls')),
+    re_path('api/(?P<version>(v1|v2))/', include('calender.urls')),
+    re_path('api/(?P<version>(v1|v2))/', include('recommendations.urls')),
 ]

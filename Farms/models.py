@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Farmer(models.Model):
-    # course
+    # farmer
     name = models.CharField(max_length=255, null=False)
     age = models.CharField(max_length=255, null=False)
     national_id = models.CharField(max_length=255, null=False)
