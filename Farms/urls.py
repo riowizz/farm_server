@@ -6,15 +6,15 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 
 urlpatterns = [
-    path(r'^farmer$', views.FarmerApi),
-    path(r'^farmer/([0-9]+)$', views.FarmerApi),
-    path(r'^farm$', views.FarmApi),
-    path(r'^farm/([0-9]+)$', views.FarmApi),
-    path(r'^farmer-login$', views.FarmerLoginApi),
-    path(r'^farmer-login/([0-9]+)$', views.FarmerLoginApi),
-    path(r'^farmdata$', views.FarmDataApi),
-    path(r'^farmdata/([0-9]+)$', views.FarmDataApi),
-    path(r'^wificreds$', views.FarmDataApi),
-    path(r'^wificreds/([0-9]+)$', views.FarmDataApi),
+    path('farmer/', views.FarmerApi),
+    path('farmer/<int:pk>/', views.FarmerApi),
+    path('farm/', views.FarmApi),
+    path('farm/<int:pk>/', views.FarmApi),
+    path('farmer-login/', views.FarmerLoginApi),
+    path('farmer-login/<int:pk>/', views.FarmerLoginApi),
+    path('farmdata/', views.FarmDataApi),
+    path('farmdata/<int:pk>/', views.FarmDataApi),
+    path('wificreds/', views.FarmDataApi),
+    path('wificreds/<int:pk>/', views.FarmDataApi),
 
 ]
